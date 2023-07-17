@@ -35,6 +35,7 @@ class UserRequest {
         final json = jsonDecode(response.body);
         final album = AlbumModel.fromJson(json);
         log('${album.userId}');
+        log('${album.title}');
         fetchUser(album.userId!);
         return album;
       }

@@ -58,41 +58,91 @@ class _DetailsPageState extends State<DetailsPage> {
                                   alignment: Alignment.topLeft,
                                   child: Text('@${store.user!.username}'.toLowerCase()),
                                 ),
-                                Image.network(
-                                  widget.photo.url!,
-                                  width: 600,
-                                  // height: 300,
-                                  // cacheHeight: 300,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                Stack(
                                   children: [
-                                    Row(
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              var lat = double.tryParse(store.user?.address?.geo?.lat ?? '0') ?? 0;
-                                              var lng = double.tryParse(store.user?.address?.geo?.lng ?? '0') ?? 0;
-                                              MapsLauncher.launchCoordinates(lat, lng);
-                                            },
-                                            icon: const Icon(Icons.pin_drop_rounded)),
-                                      ],
+                                    Image.network(
+                                      widget.photo.url!,
+                                      width: 450,
+                                    ),
+                                    Positioned(
+                                      bottom: 5,
+                                      left: 5,
+                                      child: Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          shape: BoxShape.circle,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 1,
+                                              blurRadius: 1,
+                                              offset: const Offset(0, 3),
+                                            ),
+                                          ],
+                                        ),
+                                        child: IconButton(
+                                          onPressed: () {
+                                            var lat = double.tryParse(store.user?.address?.geo?.lat ?? '0') ?? 0;
+                                            var lng = double.tryParse(store.user?.address?.geo?.lng ?? '0') ?? 0;
+                                            MapsLauncher.launchCoordinates(lat, lng);
+                                          },
+                                          icon: const Icon(
+                                            Icons.pin_drop_rounded,
+                                            size: 15,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${store.user!.name}: '.toLowerCase(),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        '${widget.photo.title}',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        softWrap: true,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                            Row(
+                            Column(
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                Row(
                                   children: [
-                                    Text('${store.user!.name}: ${store.album?.title}'),
-                                    const SizedBox(height: 8),
-                                    Text('Company: ${store.user?.company!.name}'),
-                                    const SizedBox(height: 8),
-                                    SizedBox(child: Text('Catch: ${store.user?.company!.catchPhrase}')),
-                                    const SizedBox(height: 8),
+                                    Text(
+                                      'album title: '.toLowerCase(),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        '${store.album!.title!}',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        softWrap: true,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
